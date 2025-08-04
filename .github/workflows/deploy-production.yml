@@ -18,8 +18,18 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # --- STEP DI DEBUG DA AGGIUNGERE ---
+      - name: 'Debug: List resources in Resource Group'
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            echo "--- Sto elencando le risorse nel gruppo: AZ-LEOS-CIPP ---"
+            az resource list --resource-group AZ-LEOS-CIPP -o table
+            echo "-----------------------------------------------------------"
+      # ------------------------------------
+
       - name: 'Deploy to Azure Function App'
         uses: Azure/functions-action@v1
         with:
-          app-name: 'cipptv53y' # Il nome della tua Function App di produzione
+          app-name: 'cipptv53y'
           package: '.'
